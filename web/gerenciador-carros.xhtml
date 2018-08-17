@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      template="template.xhtml"
+      >
+   
+    <h:form id="formId">
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Adicionar" action="#{carroBean.adicionar()}" update="@form"></p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:fieldset legend="Objetos">
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Modelo"></h:outputLabel>
+                    <p:inputText value="#{carroBean.carro.modelo}"></p:inputText>
+                    <h:outputLabel value="Fabricante"></h:outputLabel>
+                    <p:inputText value="#{carroBean.carro.fabricante}"></p:inputText>
+                    <h:outputLabel value="Cor"></h:outputLabel>
+                    <p:inputText value="#{carroBean.carro.cor}"></p:inputText>
+                    <h:outputLabel value="Ano"></h:outputLabel>
+                    <p:inputMask mask="9999" value="#{carroBean.carro.ano}"></p:inputMask>
+                </p:panelGrid>
+                <p:dataTable id="carrosId" value="#{carroBean.carros}" var="carro">
+                    <p:column headerText="Modelo" sortBy="#{carro.modelo}">
+                        <h:outputText value="#{carro.modelo}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Fabricante" sortBy="#{carro.fabricante}">
+                        <h:outputText value="#{carro.fabricante}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Cor" sortBy="#{carro.cor}">
+                        <h:outputText value="#{carro.cor}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Ano" sortBy="#{carro.ano}">
+                        <h:outputText value="#{carro.ano }"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Ação">
+                        <p:commandButton icon="ui-icon-close" title="remove from cart" actionListener="#{carroBean.removeItem(carro)}" update="carrosId" >
+                            <p:confirm header="Confirmação" message="Você está certo disso?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-pencil" title="edit from cart" actionListener="#{carroBean.editItem(carro)}" update=":formId" ></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        
+        
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        
+        </h:form>
+</ui:decorate>
+
